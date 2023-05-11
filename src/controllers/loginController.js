@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     }
 
     // Verificar se o email e senha estão corretos
-    const user = await userService.getByUserByEmailPassword(email, password);
+    const user = await userService.getUserByEmailPassword(email, password);
     if (!user) return res.status(400).json({ message: 'Invalid fields' });
 
     const { password: _password, ...userWithoutPassword } = user.dataValues;

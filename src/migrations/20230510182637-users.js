@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       image: {
-        allowNull: false,
+        allowNull: true, // requisite 4 say it's not mandatory 
         type: Sequelize.STRING,
       },
     });
