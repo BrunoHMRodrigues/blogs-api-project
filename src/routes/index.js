@@ -13,6 +13,8 @@ apiRoutes.post('/login', loginController);
 
 apiRoutes.post('/user', userController.createUser);
 
+apiRoutes.get('/user/:id', validateToken, userController.getUserById);
+
 apiRoutes.get('/user', validateToken, userController.getAll);
 
 module.exports = apiRoutes;
