@@ -33,8 +33,11 @@ const createUser = async (data) => {
   return { type: null };
 };
 
+const getAll = () => User.findAll({ attributes: { exclude: ['password'] } });
+
 module.exports = {
   getUserByEmailPassword,
   getUserByEmail,
   createUser,
+  getAll,
 };

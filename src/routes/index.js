@@ -4,12 +4,15 @@ const express = require('express');
 // const { createUser, getUsers } = require('../controllers/users');
 const loginController = require('../controllers/loginController');
 const userController = require('../controllers/userController');
+const validateToken = require('../middlewares/validateToken');
 // const validateJWT = require('../middleware/validateJWT');
 
 const apiRoutes = express.Router();
 
 apiRoutes.post('/login', loginController);
 
-apiRoutes.post('/user', userController);
+apiRoutes.post('/user', userController.createUser);
+
+apiRoutes.get('/user', validateToken, userController.getAll);
 
 module.exports = apiRoutes;

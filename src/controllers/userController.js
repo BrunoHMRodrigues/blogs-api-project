@@ -1,7 +1,7 @@
 const { createToken } = require('../auth/authFunctions');
 const { userService } = require('../services');
 
-module.exports = async (req, res) => {
+const createUser = async (req, res) => {
   const data = req.body;
 
   const user = await userService.createUser(data);
@@ -12,4 +12,15 @@ module.exports = async (req, res) => {
   const token = createToken(userWithoutPassword);
 
   return res.status(201).json({ token });
+};
+
+const getAll = async (req, res) => {
+  const users = await userService.getAll();
+
+  return res.status(200).json(users);
+};
+
+module.exports = {
+  createUser,
+  getAll,
 };
