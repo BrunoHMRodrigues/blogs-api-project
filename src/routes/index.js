@@ -20,4 +20,6 @@ apiRoutes.get('/user', validateToken, userController.getAll);
 
 apiRoutes.post('/categories', validateToken, categoryController.createCategory);
 
+apiRoutes.get('/categories', validateToken, categoryController.getAll);
+
 module.exports = apiRoutes;
