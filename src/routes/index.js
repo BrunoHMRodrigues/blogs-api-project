@@ -29,4 +29,6 @@ apiRoutes.get('/post', validateToken, postController.getAll);
 
 apiRoutes.get('/post/:id', validateToken, postController.getPostById);
 
+apiRoutes.put('/post/:id', validateToken, postController.editPostById);
+
 module.exports = apiRoutes;
