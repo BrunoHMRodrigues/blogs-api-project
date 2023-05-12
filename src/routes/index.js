@@ -41,4 +41,6 @@ apiRoutes.delete(
   postController.deletePostById,
 );
 
+apiRoutes.delete('/user/me', validateToken, verifyUser, userController.deleteUserMe);
+
 module.exports = apiRoutes;
