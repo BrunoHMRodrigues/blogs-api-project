@@ -1,5 +1,6 @@
 const { BlogPost, PostCategory, sequelize } = require('../models');
 const verifyCategoryIds = require('../validations/verifyCategoryIds');
+const { User, Category } = require('../models');
 
 const createBlogPost = async (postData) => {
   const { categoryIds } = postData;
@@ -19,6 +20,43 @@ const createBlogPost = async (postData) => {
   return result;
 };
 
+const getAll = async () => {
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', attributes: ['id', 'name'] },
+    ],
+  });
+
+  // const simplifiedPosts = posts.map((post) => {
+  //   const user = {
+  //     id: post.users.id,
+  //     displayName: post.users.displayName,
+  //     email: post.users.email,
+  //     image: post.users.image,
+  //   };
+
+  //   const categories = post.categories.map((category) => ({
+  //       id: category.id,
+  //       name: category.name,
+  //     }));
+
+  //   return {
+  //     id: post.id,
+  //     title: post.title,
+  //     content: post.content,
+  //     userId: post.userId,
+  //     published: post.published,
+  //     updated: post.updated,
+  //     user,
+  //     categories,
+  //   };
+  // });
+
+  return posts;
+};
+
 module.exports = {
   createBlogPost,
+  getAll,
 };

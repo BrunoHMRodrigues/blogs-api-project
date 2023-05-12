@@ -25,4 +25,6 @@ apiRoutes.get('/categories', validateToken, categoryController.getAll);
 
 apiRoutes.post('/post', validateToken, postController.createBlogPost);
 
+apiRoutes.get('/post', validateToken, postController.getAll);
+
 module.exports = apiRoutes;
