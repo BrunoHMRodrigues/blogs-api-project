@@ -1,5 +1,4 @@
 const { verifyToken } = require('../auth/authFunctions');
-// const { User } = require('../models');
 
 const TOKEN_INVALID_CODE = 401;
 const TOKEN_NOT_FOUND = 'Token not found';
@@ -12,13 +11,6 @@ const validateToken = async (req, res, next) => {
     const { data } = verifyToken(authorization);
 
     req.payload = data;
-
-    // const user = await User.findOne({ where: { id: data.id } });
-    // console.log('user', user);
-    // if (!user) {
-    //   return res.status(TOKEN_INVALID_CODE)
-    //     .json({ message: TOKEN_INVALID_MSG }); 
-    // } 
     next();
   } catch (error) {
     res.status(TOKEN_INVALID_CODE).json({ 

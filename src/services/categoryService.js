@@ -12,7 +12,16 @@ const getAll = async () => {
   return categories;
 };
 
+const getCategoryById = async (id) => {
+  console.log('entrou no getBy');
+  console.log('id', id);
+  const category = await Category.findOne({ where: { id } });
+
+  return category;
+};
+
 module.exports = {
   createCategory,
   getAll,
+  getCategoryById,
 };
