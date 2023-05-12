@@ -28,35 +28,23 @@ const getAll = async () => {
     ],
   });
 
-  // const simplifiedPosts = posts.map((post) => {
-  //   const user = {
-  //     id: post.users.id,
-  //     displayName: post.users.displayName,
-  //     email: post.users.email,
-  //     image: post.users.image,
-  //   };
-
-  //   const categories = post.categories.map((category) => ({
-  //       id: category.id,
-  //       name: category.name,
-  //     }));
-
-  //   return {
-  //     id: post.id,
-  //     title: post.title,
-  //     content: post.content,
-  //     userId: post.userId,
-  //     published: post.published,
-  //     updated: post.updated,
-  //     user,
-  //     categories,
-  //   };
-  // });
-
   return posts;
+};
+
+const getPostById = async (id) => {
+  const post = await BlogPost.findOne({ 
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', attributes: ['id', 'name'] },
+    ],
+  });
+
+  return post;
 };
 
 module.exports = {
   createBlogPost,
   getAll,
+  getPostById,
 };
