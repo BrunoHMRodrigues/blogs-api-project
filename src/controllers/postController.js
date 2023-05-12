@@ -1,11 +1,11 @@
 const { postService } = require('../services');
 
 const MISSING_FIELDS_CODE = 400;
-const UNAUTHORIZED_USER_CODE = 401;
+// const UNAUTHORIZED_USER_CODE = 401;
 const POST_NOT_EXIST_CODE = 404;
 const MISSING_FIELDS_MSG = 'Some required fields are missing';
 const POST_NOT_EXIST_MSG = 'Post does not exist';
-const UNAUTHORIZED_USER_MSG = 'Unauthorized user';
+// const UNAUTHORIZED_USER_MSG = 'Unauthorized user';
 
 const createBlogPost = async (req, res) => {
   const data = req.body;
@@ -47,20 +47,10 @@ const getPostById = async (req, res) => {
 const editPostById = async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
-  const { payload } = req;
-  const { id: userId } = payload;
 
   if (!title || !content) {
     return res.status(MISSING_FIELDS_CODE)
       .json({ message: MISSING_FIELDS_MSG }); 
-  }
-
-  const searchPostId = await postService.getPostById(id);
-
-  if (searchPostId.user.id !== userId) {
-    return res
-      .status(UNAUTHORIZED_USER_CODE)
-      .json({ message: UNAUTHORIZED_USER_MSG }); 
   }
 
   await postService.editPostById({ id, title, content });

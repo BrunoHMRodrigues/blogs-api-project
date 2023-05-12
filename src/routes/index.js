@@ -7,6 +7,7 @@ const userController = require('../controllers/userController');
 const categoryController = require('../controllers/categoryController');
 const postController = require('../controllers/postController');
 const validateToken = require('../middlewares/validateToken');
+const verifyUser = require('../middlewares/verifyUser');
 // const validateJWT = require('../middleware/validateJWT');
 
 const apiRoutes = express.Router();
@@ -29,6 +30,6 @@ apiRoutes.get('/post', validateToken, postController.getAll);
 
 apiRoutes.get('/post/:id', validateToken, postController.getPostById);
 
-apiRoutes.put('/post/:id', validateToken, postController.editPostById);
+apiRoutes.put('/post/:id', validateToken, verifyUser, postController.editPostById);
 
 module.exports = apiRoutes;
