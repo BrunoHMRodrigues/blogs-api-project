@@ -29,6 +29,8 @@ apiRoutes.post('/post', validateToken, postController.createBlogPost);
 
 apiRoutes.get('/post', validateToken, postController.getAll);
 
+apiRoutes.get('/post/search', validateToken, postController.getByTerm);
+
 apiRoutes.get('/post/:id', validateToken, verifyPostExist, postController.getPostById);
 
 apiRoutes.put('/post/:id', validateToken, verifyUser, postController.editPostById);
