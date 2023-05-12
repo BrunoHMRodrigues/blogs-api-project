@@ -1,11 +1,7 @@
 const { postService } = require('../services');
 
 const MISSING_FIELDS_CODE = 400;
-// const UNAUTHORIZED_USER_CODE = 401;
-const POST_NOT_EXIST_CODE = 404;
 const MISSING_FIELDS_MSG = 'Some required fields are missing';
-const POST_NOT_EXIST_MSG = 'Post does not exist';
-// const UNAUTHORIZED_USER_MSG = 'Unauthorized user';
 
 const createBlogPost = async (req, res) => {
   const data = req.body;
@@ -31,8 +27,6 @@ const createBlogPost = async (req, res) => {
 const getAll = async (req, res) => {
   const posts = await postService.getAll();
 
-  console.log('posts', posts);
-  // console.log('id aquiii: ', posts[0].dataValues);
   return res.status(200).json(posts);
 };
 
@@ -40,7 +34,6 @@ const getPostById = async (req, res) => {
   const { id } = req.params;
   const post = await postService.getPostById(id);
 
-  if (!post) return res.status(POST_NOT_EXIST_CODE).json({ message: POST_NOT_EXIST_MSG });
   return res.status(200).json(post);
 };
 
@@ -60,9 +53,18 @@ const editPostById = async (req, res) => {
   return res.status(200).json(editedPost);
 };
 
+const deletePostById = async (req, res) => {
+  const { id } = req.params;
+
+  await postService.deletePostById(id);
+
+  return res.status(204).json({});
+};
+
 module.exports = {
   createBlogPost,
   getAll,
   getPostById,
   editPostById,
+  deletePostById,
 };

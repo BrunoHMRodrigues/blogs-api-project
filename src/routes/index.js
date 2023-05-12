@@ -8,6 +8,7 @@ const categoryController = require('../controllers/categoryController');
 const postController = require('../controllers/postController');
 const validateToken = require('../middlewares/validateToken');
 const verifyUser = require('../middlewares/verifyUser');
+const verifyPostExist = require('../middlewares/verifyPostExist');
 // const validateJWT = require('../middleware/validateJWT');
 
 const apiRoutes = express.Router();
@@ -28,8 +29,16 @@ apiRoutes.post('/post', validateToken, postController.createBlogPost);
 
 apiRoutes.get('/post', validateToken, postController.getAll);
 
-apiRoutes.get('/post/:id', validateToken, postController.getPostById);
+apiRoutes.get('/post/:id', validateToken, verifyPostExist, postController.getPostById);
 
 apiRoutes.put('/post/:id', validateToken, verifyUser, postController.editPostById);
+
+apiRoutes.delete(
+  '/post/:id',
+  validateToken,
+  verifyPostExist,
+  verifyUser,
+  postController.deletePostById,
+);
 
 module.exports = apiRoutes;
